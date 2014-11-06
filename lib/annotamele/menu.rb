@@ -20,7 +20,7 @@ class Menu
     new_line
     wputs '*****************************'
     wputs "*                           *"
-    wputs "*     AnnotameLE #{Version.to_s}     *"
+    wputs "*     AnnotameLE #{Version.to_s}      *"
     wputs "*                           *"
     wputs "*     using Rails #{@options[:rails_version]}     *"
     wputs "*                           *"
