@@ -1,5 +1,21 @@
-<% if current_user %>
-	<li><%= link_to t('signout'), destroy_user_session_path, method: :delete, class: "delete", data: { confirm: "Are you sure ?"} %></li>
-<% else %>
-	<li><%= link_to t('signin'), new_user_session_path %></li>
-<% end %>
+<ul class="nav navbar-nav navbar-right">
+	<% if current_user %>
+		<li id="login-dropdown-list" class="dropdown">
+  		<a class="dropdown-toggle" data-toggle="dropdown">
+  			<%= current_user.email %>
+  			<b class="caret"></b>
+  		</a>
+  		<ul class="dropdown-menu">
+        <li><%= link_to t('profile_edit'), edit_user_registration_path %></li>
+        <li><%= link_to t('signout'), 
+                destroy_user_session_path, 
+                method: :delete, 
+                data: { confirm: "Are you sure ?"} %><li>
+  		</ul>
+  	</li>		
+	<% else %>
+		<ul class="nav navbar-nav navbar-right">
+			<li><%= link_to t('signin'), new_user_session_path %></li>
+		</ul>
+	<% end %>
+</ul>
