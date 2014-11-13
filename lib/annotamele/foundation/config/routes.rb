@@ -1,7 +1,8 @@
-BRICK_APP_NAME::Application.routes.draw do
-      
-  root "pages#home"
+ANNOTAMELE_APP_NAME::Application.routes.draw do
+  devise_for :users
+
+  root "questions#new"
   
-  get "/home", to: "pages#home", as: "home"
-  BRICK_CONTACT_ROUTES
+  get "/question", to: "questions#new", as: "new_question"
+  
 end

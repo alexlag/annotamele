@@ -22,4 +22,4 @@ def secure_token
   end
 end
 
-BRICK_APP_NAME::Application.config.secret_key_base = secure_token
+ANNOTAMELE_APP_NAME::Application.config.secret_key_base = secure_token

@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.version     = Version.current
   s.executables << 'annotamele'
   s.date        = Version.current_date
-  s.files 		= `git ls-files`.split($\)
+  s.files       = `git ls-files`.split($\)
   s.require_paths = ["lib"]
   s.summary     = "AnnotameLE app generator"
   s.authors     = ["Alexey Laguta"]

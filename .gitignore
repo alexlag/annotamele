@@ -5,5 +5,7 @@
 *.tmp
 Gemfile.lock
 gemfiles/*.lock
+tmp
+db/*.sqlite3
 doc
 log
