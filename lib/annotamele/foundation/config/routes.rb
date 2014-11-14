@@ -4,5 +4,6 @@ ANNOTAMELE_APP_NAME::Application.routes.draw do
   root "questions#new"
   
   get "/question", to: "questions#new", as: "new_question"
+  post "/answer", to: "answers#new", as: "new_answer"
   
 end

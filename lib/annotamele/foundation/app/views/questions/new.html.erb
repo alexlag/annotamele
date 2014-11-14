@@ -1,0 +1,34 @@
+<div class="panel panel-primary">
+  <div class="panel panel-body">
+    <%= form_tag new_answer_path do %>
+      <input type="hidden" id="question_id" name="answer[question_id]" value="<%= @answer.id %>" />
+
+      <div class="form-group">
+        <label><%= @question.text %></label>
+      </div>
+
+      <div class="form-group">
+        <label><%= @question.object %></label>
+      </div>
+
+      <div class="form-group">
+        <label>Context</label>
+        <pre><%=raw @question.context %></pre>
+      </div>
+
+      <div class="form-group">
+        <label>Answers</label>
+        <div class="" data-toggle="buttons">
+          <% Rails.application.config.annotamele_fields.each do |field| %>
+            <label class="btn btn-info">
+              <input type="checkbox" name="answer[<%= field %>]" id="<%= field %>" autocomplete="off" /><%= field.to_s.humanize %>
+            </label>
+          <% end %>
+        </div>
+      </div>
+
+      <%= submit_tag 'Submit', class: "btn btn-primary" %>
+      
+    <% end %> 
+  </div>
+</div>
