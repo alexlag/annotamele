@@ -1,13 +1,36 @@
 class AnswersController < ApplicationController
 
-  def new
-    puts answer_params
-    redirect_to new_question_path
+  before_filter :authenticate_user!
+
+  def get_question
+    @question = Question.random_without(current_user.answered_question_ids).first
+    @answer = Answer.new
+
+    respond_to do |format|
+      format.html { render :new }
+    end
+  end
+
+  def add_answer
+    @answer = Answer.new(answer_params)
+    @answer.user = current_user || User.anonymous
+
+    if @answer.save
+      redirect_to new_question_path
+    else 
+      redirect_to new_question_path(answer_params[:question_id])
+    end
+  end
+
+  def index
+    @answers = Answer.includes(:question).all  
+
+    render :index, formats: :json
   end
 
   private 
 
-  def answer_params
-    params.require(:answer).permit(*Rails.application.config.annotamele_fields, :question_id)
-  end
+    def answer_params
+      params.require(:answer).permit(*Rails.application.config.annotamele_fields, :question_id)
+    end
 end

@@ -1,8 +1,13 @@
-10.times do |i|
+require 'json'
+
+seed_data = JSON.parse File.read('db/seed_data.json')
+text = Rails.application.config.annotamele_text
+
+seed_data['questions'].each do |sd|
   q = Question.new(
-    text: "Test text no.#{i}",
-    object: "Test object #{i}",
-    context: "<b>Test context #{Random.rand(1000..2000)}<b>"
+    text: text,
+    object: sd['object'],
+    context: sd['context']
   )
   q.save!
 end

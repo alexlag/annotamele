@@ -4,7 +4,7 @@ class CreateAnswers < ActiveRecord::Migration
       t.references :question
       t.references :user
       Rails.application.config.annotamele_fields.each do |field|
-        t.boolean field
+        t.boolean field, default: false, null: false
       end
 
       t.timestamps
