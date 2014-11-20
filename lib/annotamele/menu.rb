@@ -2,6 +2,7 @@ require_relative "ui_helpers"
 require_relative "version"
 require_relative "string_helpers"
 require_relative "config_values"
+require_relative "annotamele_builder"
 require "etc"
 
 class Menu
@@ -104,6 +105,31 @@ class Menu
     # google analytics
     @options[:google_analytics] = false
     @options[:google_tracking_id] = nil
+
+    # annotamele settings
+    @options[:annotamele] = {}
+    wputs "You AnnotameLE app is for dataset markup. Let's set markup parameters up.", :help
+    new_line
+    wputs "- What type of markup does your app have?"
+    wputs "1. Singlelabel Classification", :info
+    wputs "2. Multilabel Classification", :info
+    @options[:annotamele][:type] = answer() == "2" ? :multilabel : :singlelabel
+    new_line(2)
+
+    wputs "- What question will be asked to users?" 
+    wputs "example: Classify this text into positive or negative", :help
+    @options[:annotamele][:text] = answer("Question text:")
+    new_line(2)
+
+    wputs "- What options will your users have? Please provide semicolon-separated options" 
+    wputs "example: positive; negative", :help
+    @options[:annotamele][:fields] = answer("Options:")
+    new_line(2)
+
+    wputs "- Specify absolute path to dataset file" 
+    wputs "check docs for file format", :help
+    @options[:annotamele][:dataset] = answer("Path:")
+    new_line(2)
     
     # email settings
     wputs "Your app can send emails. Let's go through the basic settings I need to know. If you choose not to configure your email settings now, you can do it at a later stage by editing the relevant section within #{@options[:app_name]}/config/application.yml.", :help
@@ -178,7 +204,7 @@ class Menu
     if @options[:production]
       # url
       wputs "- What will be the URL of your app?"
-      wputs "example: www.my-app.com, blog.my-app.com, ...", :help
+      wputs "example: www.my-app.com, annotamele.at.ispras.ru, ...", :help
       wputs "tip: don't prefix the URL with http://", :help
       @options[:production_settings][:url] = answer("URL:")
       new_line(2)

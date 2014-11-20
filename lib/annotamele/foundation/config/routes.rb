@@ -1,4 +1,4 @@
-ANNOTAMELE_APP_NAME::Application.routes.draw do
+AnnotameLE::Application.routes.draw do
   devise_for :users
 
   root "answers#get_question"

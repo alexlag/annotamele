@@ -1,9 +1,0 @@
-source 'https://rubygems.org'
-ruby 'BRICK_RUBY_VERSION'
-
-# Standard Rails gems
-gem 'rails', 'BRICK_RAILS_VERSION'
-gem 'turbolinks', 'BRICK_TURBOLINKS_VERSION'
-gem 'jbuilder', 'BRICK_JBUILDER_VERSION'
-gem 'bcrypt', 'BRICK_BCRYPT_VERSION'
-

@@ -22,4 +22,4 @@ def secure_token
   end
 end
 
-ANNOTAMELE_APP_NAME::Application.config.secret_key_base = secure_token
+AnnotameLE::Application.config.secret_key_base = secure_token

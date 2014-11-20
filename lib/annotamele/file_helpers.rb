@@ -3,13 +3,16 @@ require_relative "errors"
 module FileHelpers
 
   def self.replace_string(key,new_value,original_file,target_file = nil)
+    puts "#{key}, #{new_value}, #{original_file}"
+
     target_file = original_file if target_file == nil
     text_update = File.read(original_file)
     text_update = text_update.gsub(key, new_value)
 
     File.open(target_file, "w") { |f| f.write(text_update) }
 
-  rescue
+  rescue => e
+    puts e
     Errors.display_error "Something went wrong. The file '#{target_file}' couldn't be created and/or updated. Aborting app creation.", true
     abort
 
