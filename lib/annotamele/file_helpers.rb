@@ -11,8 +11,7 @@ module FileHelpers
 
     File.open(target_file, "w") { |f| f.write(text_update) }
 
-  rescue => e
-    puts e
+  rescue
     Errors.display_error "Something went wrong. The file '#{target_file}' couldn't be created and/or updated. Aborting app creation.", true
     abort
 
