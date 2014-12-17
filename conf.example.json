@@ -1,0 +1,28 @@
+{
+  "gem_command":"gem",
+  "rake_command":"rake",
+  "app_name":"test",
+  "annotamele":{
+    "type":"multilabel",
+    "text":"question?",
+    "fields": [
+      "test 1",
+      "test 2",
+      "test 3"
+    ],
+    "dataset":"/path/to/dataset.json"
+  },
+  "email_settings":false,
+  "email_config": {
+    "sender":null,
+    "smtp":null,
+    "domain":null,
+    "port":null,
+    "username":null,
+    "password":"******"
+  },
+  "production":true,
+  "production_settings":{
+    "url":"test.com"
+  }
+}
