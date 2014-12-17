@@ -1,4 +1,5 @@
 require "fileutils"
+require_relative "annotamele_builder"
 require_relative "ui_helpers"
 require_relative "version"
 require_relative "string_helpers"
@@ -12,6 +13,7 @@ class AppGenerator
   
   def initialize(options)
     @options = options
+    options[:rails_app_name] = StringHelpers.convert_to_app_name(options[:app_name])
     @app_dir = Dir.pwd + "/#{@options[:app_name]}"
     @annotamele_dir = File.dirname(__FILE__)
   end

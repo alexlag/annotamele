@@ -1,9 +1,11 @@
 module ConfigValues
 
-  RAILS_VERSION = "4.1.7"
-
   def self.rails_version
-    RAILS_VERSION
+    "4.1.7"
+  end
+
+  def self.ruby_version
+    "2.1.4"
   end
   
 end

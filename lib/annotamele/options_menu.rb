@@ -1,23 +1,14 @@
 require_relative "ui_helpers"
-require_relative "version"
+require_relative "options"
 require_relative "string_helpers"
 require_relative "config_values"
-require_relative "annotamele_builder"
 require "etc"
 
-class Menu
-  
-  attr_accessor :options
-  
+class OptionsMenu < Options
   
   def initialize
-    @options = {annotamele_version: Version.to_s}
-  end
-  
-  
-  def new_app_menu
+    super()
     # WELCOME
-    @options[:rails_version] = ConfigValues.rails_version    
     new_line
     wputs '*****************************'
     wputs "*                           *"
@@ -38,15 +29,11 @@ class Menu
     wputs "(default: #{default_name})"
     @options[:app_name] = StringHelpers.sanitize(answer("App name:"))
     @options[:app_name] = default_name if @options[:app_name].length < 1
-    @options[:rails_app_name] = StringHelpers.convert_to_app_name(@options[:app_name])
     new_line(2)
     
     # DEVELOPMENT ENVIRONMENT
     wputs "2. Your Development Environment"
     wputs "-------------------------------"
-    
-    # ruby version
-    @options[:ruby_version] = "2.1.4"
     
     # gem command
     wputs "On some systems, you can't install gems by issuing a simple 'gem install name_of_gem' command but need to prefix it with 'sudo' and issue 'sudo gem install name_of_gem'. If this is the case, you most likely will need to input your password at some point.", :help
@@ -66,46 +53,10 @@ class Menu
     @options[:rake_command] = answer() == "2" ? "bundle exec rake" : "rake"
     new_line(2)
     
-    # development database
-    @options[:development_db] = "sqlite"
-    @options[:db_config] = {}
-    new_line(2)
-    
-    @options[:db_config][:server] = nil
-    @options[:db_config][:port] = nil
-    @options[:db_config][:name] = nil
-    @options[:db_config][:username] = nil
-    @options[:db_config][:password] = nil
-    
-    
     # APP INFO
     wputs "3. About Your App"
     wputs "-----------------"
     
-    # devise
-    @options[:devise] = true
-    @options[:devise_config] = {}
-    new_line(2)
-    
-    # sign in
-    @options[:devise_config][:scheme] = "email"
-      
-    # allow sign up
-    @options[:devise_config][:allow_signup] = true
-      
-    # test users
-    @options[:devise_config][:test_users] = false      
-      
-    # post model
-    @options[:post_resources] = false
-    
-    # contact form
-    @options[:contact_form] = false
-    
-    # google analytics
-    @options[:google_analytics] = false
-    @options[:google_tracking_id] = nil
-
     # annotamele settings
     @options[:annotamele] = {}
     wputs "You AnnotameLE app is for dataset markup. Let's set markup parameters up.", :help
@@ -123,7 +74,7 @@ class Menu
 
     wputs "- What options will your users have? Please provide semicolon-separated options" 
     wputs "example: positive; negative", :help
-    @options[:annotamele][:fields] = answer("Options:")
+    @options[:annotamele][:fields] = answer("Options:").split(";")
     new_line(2)
 
     wputs "- Specify absolute path to dataset file" 

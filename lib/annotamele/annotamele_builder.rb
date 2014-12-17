@@ -7,8 +7,8 @@ require_relative "config_values"
 
 module AnnotameleBuilder
 
-  def self.convert_fields(fields_string)
-    fields_string.split(';').map { |field| ':' + StringHelpers.sanitize(field.strip).downcase }.join(', ')
+  def self.convert_fields(fields)
+    fields.map { |field| ':' + StringHelpers.sanitize(field.strip).downcase }.join(', ')
   end
   
   def self.build_annotamele(app_dir, options)
