@@ -5,7 +5,7 @@ module ConfigValues
   end
 
   def self.ruby_version
-    "2.1.4"
+    "2.1.5"
   end
   
 end
