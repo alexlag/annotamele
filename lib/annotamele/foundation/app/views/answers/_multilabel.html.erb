@@ -1,8 +1,11 @@
 <% if options %>
+  <div class="form-group">
+    <label><%= text %></label>
+  </div>
   <div class="" data-toggle="buttons">
     <% options.each do |option| %>
       <label class="btn btn-info">
-        <input type="checkbox" name="answer" id="<%= option %>" autocomplete="off" /><%= option %>
+        <input type="checkbox" name="answer[body][]" value="<%= option %>" autocomplete="off" /><%= option %>
       </label>
     <% end %>
   </div>

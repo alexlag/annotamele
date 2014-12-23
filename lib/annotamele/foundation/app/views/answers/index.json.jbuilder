@@ -1,16 +1,15 @@
 json.array! @answers do |answer|
   
-  json.question do
-    json.(answer.question, :text, :context)
-  end
+  json.question({
+    object: answer.question.object, 
+    context: answer.question.context
+  }.merge(answer.question.type.export))
 
   json.user do
     json.(answer.user, :email, :created_at)
   end
 
-  json.answer do 
-    json.(answer, *Rails.application.config.annotamele_fields)
-  end
+  json.answer answer.body
 
   json.created answer.created_at
 end

@@ -16,15 +16,13 @@ ActiveRecord::Schema.define(version: 20141114121428) do
   create_table "answers", force: true do |t|
     t.integer  "question_id"
     t.integer  "user_id"
-    t.boolean  "first_option",  default: false, null: false
-    t.boolean  "second_option", default: false, null: false
-    t.boolean  "third_option",  default: false, null: false
+    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "questions", force: true do |t|
-    t.string   "text"
+    t.integer  "type_id"
     t.string   "object"
     t.string   "context"
     t.datetime "created_at"

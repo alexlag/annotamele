@@ -31,6 +31,6 @@ class AnswersController < ApplicationController
   private 
 
     def answer_params
-      params.require(:answer).permit(*Rails.application.config.annotamele_fields, :question_id)
+      params.require(:answer).permit!
     end
 end

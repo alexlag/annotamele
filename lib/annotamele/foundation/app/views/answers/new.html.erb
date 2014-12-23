@@ -13,21 +13,9 @@
           <pre><%=raw @question.context %></pre>
         </div>
 
-        <div class="form-group">
-          <label><%= @question.text %></label>
-        </div>
-
-        <div class="form-group">
-          <label>Answers</label>
-          <div class="" data-toggle="buttons">
-            <% Rails.application.config.annotamele_fields.each do |field| %>
-              <label class="btn btn-info">
-                <input type="<%= annotamele_input %>" name="answer[<%= field %>]" id="<%= field %>" autocomplete="off" /><%= field.to_s.humanize %>
-              </label>
-            <% end %>
-          </div>
-        </div>
-
+        <%= render @question.type.view_partial %>
+        
+        <br />
         <%= submit_tag 'Submit', class: "btn btn-primary" %>
       <% end %> 
     <% else %>

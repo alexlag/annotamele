@@ -1,5 +1,5 @@
 AnnotameLE::Application.configure do
-  config.annotamele_type = :multilabel  
-  config.annotamele_fields = [:first_option, :second_option, :third_option]
-  config.annotamele_text = "Please select answer below"
+  config.annotamele_types = [
+    AnswerTypes::MultiLabel.new("Please select one answer below", ["First Option", "Second option", "Third option"])
+  ]
 end
