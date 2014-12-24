@@ -34,7 +34,7 @@ module AnnotameleBuilder
 
   def self.generate_types_builder(types)
     types.map { |type| 
-      %Q/AnswerTypes.#{type[:name]}(#{type[:params].to_s[1..-2]})/
+      %Q/    AnswerTypes.#{type[:name]}(#{type[:params].to_s[1..-2]})/
     }.join(",\n")
   end
   
