@@ -22,7 +22,6 @@ module AnswerTypes
         options: self.options
       }
     end
-
   end
 
 end

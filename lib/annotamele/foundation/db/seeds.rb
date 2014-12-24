@@ -4,7 +4,7 @@ seed_data = JSON.parse File.read('db/seed_data.json')
 
 seed_data['questions'].each do |sd|
   q = Question.new(
-    type_id: 0,
+    type_id: sd['type'],
     object: sd['object'],
     context: sd['context']
   )

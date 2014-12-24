@@ -1,7 +1,6 @@
 require_relative "annotamele/version"
 require_relative "annotamele/string_helpers"
 require_relative "annotamele/errors"
-require_relative "annotamele/options_menu"
 require_relative "annotamele/options_file"
 require_relative "annotamele/options"
 require_relative "annotamele/app_generator"
@@ -11,9 +10,7 @@ class AnnotameLE
 
 
   def self.main(args)
-    if args[0] == '-n' || args[0] == '--new'
-      new_menu
-    elsif args[0] == '-f' || args[0] == '--file'
+    if args[0] == '-f' || args[0] == '--file'
       new_from_file args[1]  
     elsif args[0] == '-v' || args[0] == '--version'
       display_version  
@@ -22,13 +19,6 @@ class AnnotameLE
     end
   end
   
-  
-  def self.new_menu
-    @options = OptionsMenu.new.options
-    generator = AppGenerator.new(@options)
-    generator.generate_app    
-  end
-
   def self.new_from_file(path)
     @options = OptionsFile.new(path).options
     generator = AppGenerator.new(@options)
@@ -46,9 +36,6 @@ class AnnotameLE
     puts
     StringHelpers.wputs "AnnotameLE usage:", :info
     StringHelpers.wputs "------------------", :info
-    puts
-    puts "annotamele --new (or -n) :"
-    puts "  --> create a new AnnotameLE app with wizard."
     puts
     puts "annotamele --file <filepath> (or -f <filepath>) :"
     puts "  --> create a new AnnotameLE app with config file."

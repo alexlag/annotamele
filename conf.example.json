@@ -3,12 +3,14 @@
   "rake_command":"rake",
   "app_name":"test",
   "annotamele":{
-    "type":"multilabel",
-    "text":"question?",
-    "fields": [
-      "test 1",
-      "test 2",
-      "test 3"
+    "types": [ 
+      {
+        "name": "singlelabel",
+        "params": [
+          "Classification question?",
+          ["Answer 1", "Answer 2"]
+        ]
+      }
     ],
     "dataset":"/path/to/dataset.json"
   },

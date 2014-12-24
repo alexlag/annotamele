@@ -1,3 +1,4 @@
+require_relative "options"
 require "json"
 
 class OptionsFile < Options
