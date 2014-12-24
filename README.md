@@ -1,3 +1,4 @@
 # AnnotameLE
+Simple(well, simplier than Annotame) tool to create markup webapps. 
 
-TODO
+Based on [RailsBricks](https://github.com/nicoschuele/railsbricks)
