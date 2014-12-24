@@ -15,11 +15,8 @@ class AnswersController < ApplicationController
     @answer = Answer.new(answer_params)
     @answer.user = current_user || User.anonymous
 
-    if @answer.save
-      redirect_to new_question_path
-    else 
-      redirect_to new_question_path(answer_params[:question_id])
-    end
+    @answer.save
+    redirect_to new_question_path
   end
 
   def index

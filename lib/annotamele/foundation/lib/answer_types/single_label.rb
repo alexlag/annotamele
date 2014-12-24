@@ -22,6 +22,11 @@ module AnswerTypes
         options: self.options
       }
     end
+
+    def validation(answer)
+      return false unless answer.is_a?(Array) && answer.length < 2
+      answer.all? { |a| self.options.include? a }
+    end
   end
 
 end
