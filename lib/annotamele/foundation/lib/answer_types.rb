@@ -1,4 +1,4 @@
-Dir["answer_types/*.rb"].each { |file| requre file }
+Dir["answer_types/*.rb"].each { |file| require file }
 
 module AnswerTypes
 
