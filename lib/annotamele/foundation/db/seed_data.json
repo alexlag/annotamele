@@ -29,6 +29,31 @@
       "object": "Test object 6",
       "context": "Test context 6",
       "type": 0
+    },
+    {
+      "object": "Test object 7",
+      "context": "Test context 7",
+      "type": 1
+    },
+    {
+      "object": "Test object 8",
+      "context": "Test context 8",
+      "type": 1
+    },
+    {
+      "object": "Test object 9",
+      "context": "Test context 9",
+      "type": 1
+    },
+    {
+      "object": "Test object 10",
+      "context": "Test context 10",
+      "type": 1
+    },
+    {
+      "object": "Test object 11",
+      "context": "Test context 11",
+      "type": 1
     }
 	]
 }

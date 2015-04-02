@@ -1,0 +1,16 @@
+[ 
+  {
+    "name": "singlelabel",
+    "params": [
+      "Select one answer below:",
+      ["Answer 1", "Answer 2", "Answer 3"]
+    ]
+  }, 
+  {
+    "name": "multilabel",
+    "params": [
+      "Select several answers below:",
+      ["First Answer", "Second Answer", "Third Answer"]
+    ]
+  }
+]
