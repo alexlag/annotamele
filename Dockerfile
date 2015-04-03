@@ -27,13 +27,20 @@ RUN \
   cd .. && \
   rm -rf ruby-2.1.5 && \
   echo 'gem: --no-document' > /usr/local/etc/gemrc && \
+  echo 'gem: --no-document' > ~/.gemrc && \
   gem install bundler 
 
 # SqLite
-RUN apt-get -y install sqlite3 libsqlite3-dev
+RUN \
+  apt-get -y install sqlite3 libsqlite3-dev && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # AnnotameLE
 WORKDIR /var/www/annotamele
+COPY lib/annotamele/foundation .
+COPY docker/answer_types.json config/answer_types.json
+COPY docker/dataset.json db/seed_data.json
 COPY lib/annotamele/foundation .
 RUN \
   bundle install --without production --path vendor/bundle && \
@@ -41,4 +48,5 @@ RUN \
 
 EXPOSE 3000
 
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+ENTRYPOINT ["bundle", "exec"]
+CMD ["rails", "server", "-b", "0.0.0.0"]
