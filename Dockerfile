@@ -7,6 +7,7 @@ RUN \
   apt-get -y install \
   build-essential \
   curl \
+  wget \
   libcurl4-openssl-dev \
   libc6-dev \
   libreadline-dev \
@@ -19,7 +20,7 @@ RUN \
 
 # Ruby install
 RUN \
-  curl -- progress http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.5.tar.gz | tar xz && \
+  wget -qO- http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.5.tar.gz | tar xz && \
   cd ruby-2.1.5 && \
   ./configure --disable-install-doc && \
   make && \
