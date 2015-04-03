@@ -42,7 +42,6 @@ WORKDIR /var/www/annotamele
 COPY lib/annotamele/foundation .
 COPY docker/answer_types.json config/answer_types.json
 COPY docker/dataset.json db/seed_data.json
-COPY lib/annotamele/foundation .
 RUN \
   bundle install --without production --path vendor/bundle && \
   bundle exec rake db:create:all db:migrate db:seed 
