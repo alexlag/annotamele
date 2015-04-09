@@ -1,8 +1,7 @@
 class AnswersController < ApplicationController
-
   before_filter :authenticate_user!
 
-  def get_question
+  def question
     @question = Question.random_without(current_user.answered_question_ids).first
     @answer = Answer.new
 
@@ -20,14 +19,14 @@ class AnswersController < ApplicationController
   end
 
   def index
-    @answers = Answer.includes(:question).all  
+    @answers = Answer.includes(:question).all
 
     render :index, formats: :json
   end
 
-  private 
+  private
 
-    def answer_params
-      params.require(:answer).permit!
-    end
+  def answer_params
+    params.require(:answer).permit!
+  end
 end

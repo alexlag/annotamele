@@ -31,9 +31,9 @@ RUN \
   echo 'gem: --no-document' > ~/.gemrc && \
   gem install bundler 
 
-# SqLite
+# SQLite and Node
 RUN \
-  apt-get -y install sqlite3 libsqlite3-dev && \
+  apt-get -y install sqlite3 libsqlite3-dev nodejs && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -43,10 +43,11 @@ COPY lib/annotamele/foundation .
 COPY docker/answer_types.json config/answer_types.json
 COPY docker/dataset.json db/seed_data.json
 RUN \
-  bundle install --without production --path vendor/bundle && \
-  bundle exec rake db:create:all db:migrate db:seed 
+  bundle install --path vendor/bundle && \
+  RAILS_ENV=production bundle exec rake db:create:all db:migrate:all db:seed:all assets:precompile
 
 EXPOSE 3000
 
+ENV RAILS_ENV production
 ENTRYPOINT ["bundle", "exec"]
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["rails", "server", "-e", "production", "-b", "0.0.0.0"]

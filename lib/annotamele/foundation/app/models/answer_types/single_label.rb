@@ -1,5 +1,4 @@
 module AnswerTypes
-
   class SingleLabel
     attr_accessor :text, :options
 
@@ -10,7 +9,7 @@ module AnswerTypes
 
     def view_partial
       {
-        partial: 'singlelabel',
+        partial: 'answer_types/single_label',
         locals: export
       }
     end
@@ -28,5 +27,4 @@ module AnswerTypes
       answer.all? { |a| self.options.include? a }
     end
   end
-
 end

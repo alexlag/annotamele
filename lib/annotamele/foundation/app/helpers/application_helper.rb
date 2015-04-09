@@ -1,9 +1,5 @@
 module ApplicationHelper
-
   def title(value)
-    unless value.nil?
-      @title = "#{value} | AnnotameLE"      
-    end
+    @title = "#{value} | AnnotameLE" unless value.nil?
   end
-
 end

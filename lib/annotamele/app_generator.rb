@@ -179,7 +179,7 @@ class AppGenerator
     new_line(2)
     wputs "----> Installing gems into 'vendor/bundle/' ...", :info
     Dir.chdir "#{@app_dir}" do
-      system "bundle install --without production --path vendor/bundle"
+      system "bundle install --path vendor/bundle"
     end
     new_line
     wputs "----> Gems installed in 'vendor/bundle/'.", :info
@@ -191,8 +191,8 @@ class AppGenerator
     wputs "----> Creating database ...", :info
     Dir.chdir "#{@app_dir}" do
       system "#{@options[:rake_command]} db:create:all"
-      system "#{@options[:rake_command]} db:migrate"
-      system "#{@options[:rake_command]} db:seed"
+      system "#{@options[:rake_command]} db:migrate:all"
+      system "#{@options[:rake_command]} db:seed:all"
     end
     new_line
     wputs "----> Database created.", :info

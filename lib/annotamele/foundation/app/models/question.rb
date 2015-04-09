@@ -1,5 +1,5 @@
 class Question < ActiveRecord::Base
-  has_many :answers
+  has_many :answers, dependent: :destroy
   attr_accessor :type
 
   after_find do |question|
@@ -9,6 +9,5 @@ class Question < ActiveRecord::Base
   validates_presence_of :type_id
 
   scope :without, ->(ids) { where.not(id: ids) }
-  scope :random_without, ->(ids) { where.not(id: ids).order("RANDOM()") }
-
+  scope :random_without, ->(ids) { where.not(id: ids).order('RANDOM()') }
 end
