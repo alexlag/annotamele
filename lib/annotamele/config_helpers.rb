@@ -2,17 +2,17 @@ require 'fileutils'
 require 'json'
 
 module ConfigHelpers
-
-  CONFIG_PATH = ".annotamele"
+  CONFIG_PATH = '.annotamele'
 
   def self.create_config(app_dir, options = {})
-    FileUtils::mkdir_p "#{app_dir}/#{CONFIG_PATH}"
+    FileUtils.mkdir_p "#{app_dir}/#{CONFIG_PATH}"
     dup_options = options.dup
-    dup_options[:email_config][:password] = "******"
+    dup_options[:email_config][:password] = '******'
     saved_options = dup_options.to_json
 
-    File.open("#{app_dir}/#{CONFIG_PATH}/config", "w") { |f| f.write(saved_options)}
-
+    File.open("#{app_dir}/#{CONFIG_PATH}/config", 'w') do |f|
+      f.write(saved_options)
+    end
   end
 
   def self.load_config
@@ -20,8 +20,7 @@ module ConfigHelpers
     JSON.parse(config_json)
   rescue
     options = {}
-    options["rake_command"] = "rake"
+    options['rake_command'] = 'rake'
     options
   end
-
 end

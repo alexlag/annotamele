@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141114121428) do
+ActiveRecord::Schema.define(version: 20150413134149) do
+
+  create_table "answer_types", force: true do |t|
+    t.string "type"
+    t.text   "body", default: "--- {}\n"
+  end
 
   create_table "answers", force: true do |t|
     t.integer  "question_id"

@@ -1,30 +1,37 @@
-module AnswerTypes
-  class SingleLabel
-    attr_accessor :text, :options
+class SingleLabel < AnswerType
+  def text=(text)
+    body[:text] = text
+  end
 
-    def initialize(text, answer_options)
-      self.text = text
-      self.options = answer_options
-    end
+  def text
+    body[:text]
+  end
 
-    def view_partial
-      {
-        partial: 'answer_types/single_label',
-        locals: export
-      }
-    end
+  def options=(options)
+    body[:options] = options
+  end
 
-    def export
-      {
-        type: self.class.name,
-        text: self.text,
-        options: self.options
-      }
-    end
+  def options
+    body[:options]
+  end
 
-    def validation(answer)
-      return false unless answer.is_a?(Array) && answer.length < 2
-      answer.all? { |a| self.options.include? a }
-    end
+  def view_partial
+    {
+      partial: 'answer_types/single_label',
+      locals: export
+    }
+  end
+
+  def export
+    {
+      type: self.class.name,
+      text: text,
+      options: options
+    }
+  end
+
+  def validation(answer)
+    return false unless answer.is_a?(Array) && answer.length < 2
+    answer.all? { |a| options.include? a }
   end
 end

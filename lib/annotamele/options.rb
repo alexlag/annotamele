@@ -1,9 +1,9 @@
-require_relative "version"
-require_relative "config_values"
+require_relative 'version'
+require_relative 'config_values'
 
 class Options
   attr_accessor :options
-  
+
   def initialize
     # Basic
     @options = {
@@ -13,5 +13,4 @@ class Options
       generate: true
     }
   end
-
 end

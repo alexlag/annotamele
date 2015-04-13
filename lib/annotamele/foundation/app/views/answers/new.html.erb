@@ -1,25 +1,27 @@
-<div class="panel panel-primary col-md-10 col-md-offset-1">
-  <div class="panel panel-body">
-    <% if @question %>
-      <%= form_tag new_answer_path do %>
-        <input type="hidden" id="question_id" name="answer[question_id]" value="<%= @question.id %>" />
+<div class="col-md-10 col-md-offset-1">
+  <div class="panel panel-primary">
+    <div class="panel-body">
+      <% if @question %>
+        <%= form_tag new_answer_path do %>
+          <input type="hidden" id="question_id" name="answer[question_id]" value="<%= @question.id %>" />
 
-        <div class="form-group">
-          <label><%= @question.object %></label>
-        </div>
+          <div class="form-group">
+            <label><%= @question.object %></label>
+          </div>
 
-        <div class="form-group">
-          <label>Context</label>
-          <pre><%=raw @question.context %></pre>
-        </div>
+          <div class="form-group">
+            <label>Context</label>
+            <pre><%=raw @question.context %></pre>
+          </div>
 
-        <%= render @question.type.view_partial %>
-        
-        <br />
-        <%= submit_tag 'Submit', class: "btn btn-primary" %>
-      <% end %> 
-    <% else %>
-      <h2>Looks like no more questions left</h2>
-    <% end%>
+          <%= render @question.type.view_partial %>
+          
+          <br />
+          <%= submit_tag 'Submit', class: "btn btn-primary" %>
+        <% end %> 
+      <% else %>
+        <h2>Looks like no more questions left</h2>
+      <% end%>
+    </div>
   </div>
 </div>

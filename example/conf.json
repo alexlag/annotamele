@@ -5,12 +5,19 @@
   "annotamele":{
     "types": [ 
       {
-        "name": "singlelabel",
-        "params": [
-          "Classification question?",
-          ["Answer 1", "Answer 2"]
-        ]
-      }
+          "name": "SingleLabel",
+          "params": {
+            "text": "Select one answer below:",
+            "options": ["Answer 1", "Answer 2", "Answer 3"]
+          }
+        }, 
+        {
+          "name": "MultiLabel",
+          "params": {
+            "text": "Select several answers below:",
+            "options": ["First Answer", "Second Answer", "Third Answer"]
+          }
+        }
     ],
     "dataset":"/path/to/dataset.json"
   },

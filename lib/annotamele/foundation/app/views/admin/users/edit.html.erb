@@ -1,10 +1,12 @@
 <% title("Edit User Id: #{@user.id}") %>
+<ol class="breadcrumb">
+  <li><%= link_to "Admin Panel", admin_root_path %></li>
+  <li><%= link_to "Users", admin_users_path %></li>
+  <li class="active"><%= @user.email %></li>
+</ol>
+
 <div class="row">
   <div class="col-sm-6">
-    <h1>
-      Edit User <small><%= "#{@user.email} - id: #{@user.id}" %></small>
-    </h1>
-    <p><%= link_to "Back to Users", admin_users_path %></p>
 
     <%= form_for [:admin, @user], :html => { :role => "form" } do |f| %>
 

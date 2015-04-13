@@ -7,7 +7,6 @@ require_relative "file_helpers"
 require_relative "config_helpers"
 
 class AppGenerator
-  
   attr_accessor :options
 
   
@@ -18,7 +17,6 @@ class AppGenerator
     @annotamele_dir = File.dirname(__FILE__)
   end
   
-  
   def generate_app
     # Drop creation if necessary
     if !@options[:generate]
@@ -26,67 +24,61 @@ class AppGenerator
       new_line
       abort
     end
-    
+
     # updating necessary global gems
     update_essential_gems
-    
+
     # install Rails
     install_rails
-    
+
     # copy foundation app to directory
     create_foundation
 
     # annotamele variables
     AnnotameleBuilder.build_annotamele(@app_dir, @options)
-    
+
     # environment variables
     config_env_var
-    
+
     # prod settings
     set_production
-    
+
     # install gems
     bundle_install
 
     # create database
     create_database
-    
+
     # save config
     ConfigHelpers.create_config(@app_dir, @options)
-      
+
     # Summary
     new_line(2)
     wputs "----> #{@options[:rails_app_name]} created successfully!", :help
     new_line
     wputs "Run 'rails server' within #{@options[:app_name]} to start it.", :help
-    new_line    
-    
+    new_line
   end
-  
-  
-  
-  
+
   # Private/shortcut/alias methods
-  
+
   private
-  
+
   def update_essential_gems
     new_line
-    wputs "----> Updating Rake & Bundler ... ", :info
+    wputs '----> Updating Rake & Bundler ... ', :info
     system "#{@options[:gem_command]} install rake --no-rdoc --no-ri"
     system "#{@options[:gem_command]} update rake"
     system "#{@options[:gem_command]} install bundler --no-rdoc --no-ri"
     system "#{@options[:gem_command]} update bundler"
     new_line
-    wputs "----> Rake & Bundler updated to their latest versions.", :info
+    wputs '----> Rake & Bundler updated to their latest versions.', :info
 
   rescue
     Errors.display_error("Required gems (rake & bundler) couldn't be updated properly. Stopping app creation.", true)
     abort
-
   end
-  
-  
+
   def install_rails
     new_line(2)
     wputs "----> Installing Rails #{@options[:rails_version]} ...", :info
@@ -97,33 +89,27 @@ class AppGenerator
   rescue
     Errors.display_error("Something went wrong and Rails #{@options[:rails_version]} couldn't be installed. Stopping app creation.", true)
     abort
+  end
 
-  end
-  
-  
   def create_foundation
-    FileUtils::mkdir_p @app_dir
-    FileUtils.cp_r(@annotamele_dir + "/foundation/.", @app_dir)
-    
+    FileUtils.mkdir_p @app_dir
+    FileUtils.cp_r(@annotamele_dir + '/foundation/.', @app_dir)
   end
-  
-  
+
   def config_db
     new_line(2)
-    wputs "----> Configuring database ...", :info
-    
-    FileUtils.cp_r(@annotamele_dir + "/assets/database/sqlite3.yml", @app_dir + "/config/database.yml")
-    
+    wputs '----> Configuring database ...', :info
+    FileUtils.cp_r(@annotamele_dir + '/assets/database/sqlite3.yml', @app_dir + '/config/database.yml')
+
     new_line
-    wputs "----> Database configuration set.", :info
+    wputs '----> Database configuration set.', :info
   end
-  
-  
+
   def config_env_var
     new_line(2)
-    wputs "----> Setting environment variables ...", :info
-    FileUtils.cp_r(@annotamele_dir + "/assets/config/application.yml", @app_dir + "/config")
-            
+    wputs '----> Setting environment variables ...', :info
+    FileUtils.cp_r(@annotamele_dir + '/assets/config/application.yml', @app_dir + '/config')
+
     if @options[:email_settings]
       FileHelpers.replace_string(/ANNOTAMELE_SENDER/, @options[:email_config][:sender], @app_dir + "/config/application.yml")
       FileHelpers.replace_string(/ANNOTAMELE_SMTP_SERVER/, @options[:email_config][:smtp], @app_dir + "/config/application.yml")
@@ -132,16 +118,15 @@ class AppGenerator
       FileHelpers.replace_string(/ANNOTAMELE_SMTP_USERNAME/, @options[:email_config][:username], @app_dir + "/config/application.yml")
       FileHelpers.replace_string(/ANNOTAMELE_SMTP_PASSWORD/, @options[:email_config][:password], @app_dir + "/config/application.yml")
     end
-      
+
     if @options[:production]
       FileHelpers.replace_string(/ANNOTAMELE_DOMAIN/, @options[:production_settings][:url], @app_dir + "/config/application.yml")
     end
-    
+
     new_line
     wputs "----> Environment variables set.", :info
   end
-  
-  
+
   def set_production
     new_line(2)
     wputs "----> Production settings ...", :info
@@ -154,8 +139,7 @@ class AppGenerator
     new_line
     wputs "----> Production settings updated.", :info    
   end
-  
-  
+
   def set_app_name
     new_line(2)
     wputs "----> Setting app name ...", :info
@@ -173,8 +157,7 @@ class AppGenerator
     new_line
     wputs "----> App name set.", :info
   end
-  
-  
+
   def bundle_install
     new_line(2)
     wputs "----> Installing gems into 'vendor/bundle/' ...", :info
@@ -184,32 +167,27 @@ class AppGenerator
     new_line
     wputs "----> Gems installed in 'vendor/bundle/'.", :info
   end
-  
-  
+
   def create_database
     new_line(2)
     wputs "----> Creating database ...", :info
     Dir.chdir "#{@app_dir}" do
       system "#{@options[:rake_command]} db:create:all"
-      system "#{@options[:rake_command]} db:migrate:all"
-      system "#{@options[:rake_command]} db:seed:all"
+      system "#{@options[:rake_command]} db:migrate"
+      system "#{@options[:rake_command]} db:seed"
     end
     new_line
     wputs "----> Database created.", :info
   end
-  
-  
+
   def wputs(text, highlight = :none)
     StringHelpers.wputs(text, highlight)
   end
-  
-  
-  def new_line(lines=1)
+
+  def new_line(lines = 1)
     StringHelpers.new_line(lines)
   end
-
 end
-
 
 
 

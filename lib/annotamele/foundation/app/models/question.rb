@@ -1,10 +1,6 @@
 class Question < ActiveRecord::Base
   has_many :answers, dependent: :destroy
-  attr_accessor :type
-
-  after_find do |question|
-    question.type = Rails.application.config.annotamele_types[question.type_id]
-  end
+  belongs_to :type, class_name: 'AnswerType', foreign_key: :type_id
 
   validates_presence_of :type_id
 

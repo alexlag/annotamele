@@ -40,11 +40,11 @@ RUN \
 # AnnotameLE
 WORKDIR /var/www/annotamele
 COPY lib/annotamele/foundation .
-COPY docker/answer_types.json config/answer_types.json
+COPY docker/answer_types.json db/answer_types.json
 COPY docker/dataset.json db/seed_data.json
 RUN \
   bundle install --path vendor/bundle && \
-  RAILS_ENV=production bundle exec rake db:create:all db:migrate:all db:seed:all assets:precompile
+  RAILS_ENV=production bundle exec rake db:create:all db:migrate db:seed assets:precompile
 
 EXPOSE 3000
 

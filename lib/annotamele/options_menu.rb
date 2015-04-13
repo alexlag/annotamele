@@ -1,27 +1,26 @@
-require_relative "ui_helpers"
-require_relative "options"
-require_relative "string_helpers"
-require_relative "config_values"
-require "etc"
+require_relative 'ui_helpers'
+require_relative 'options'
+require_relative 'string_helpers'
+require_relative 'config_values'
+require 'etc'
 
 class OptionsMenu < Options
-  
   def initialize
     super()
     # WELCOME
     new_line
     wputs '*****************************'
-    wputs "*                           *"
-    wputs "*     AnnotameLE #{Version.to_s}      *"
-    wputs "*                           *"
-    wputs "*     using Rails #{@options[:rails_version]}     *"
-    wputs "*                           *"
+    wputs '*                           *'
+    wputs '*     AnnotameLE #{Version.to_s}      *'
+    wputs '*                           *'
+    wputs '*     using Rails #{@options[:rails_version]}     *'
+    wputs '*                           *'
     wputs '*****************************'
     new_line(2)
 
     # APP NAME
-    wputs "1. Your Rails App Name"
-    wputs "----------------------"
+    wputs '1. Your Rails App Name'
+    wputs '----------------------'
     wputs "First of all, you need to give a name to your new app. I'll create it in #{Dir.pwd}/. Of course, only use a valid Rails app name.", :help
     new_line
     wputs "- What do you want to name your app?"
@@ -137,11 +136,11 @@ class OptionsMenu < Options
       @options[:email_config][:username] = nil
       @options[:email_config][:password] = nil
     end
-    
+
     # PRODUCTION
     wputs "4. Your Production Settings"
     wputs "---------------------------"
-    
+
     # production
     wputs "At some point, you will deploy your app to a production environment. I can already set up some settings for you.", :help
     new_line
@@ -151,7 +150,7 @@ class OptionsMenu < Options
     @options[:production] = answer() == "2" ? false : true
     @options[:production_settings] = {}
     new_line(2)
-    
+
     if @options[:production]
       # url
       wputs "- What will be the URL of your app?"
@@ -159,7 +158,7 @@ class OptionsMenu < Options
       wputs "tip: don't prefix the URL with http://", :help
       @options[:production_settings][:url] = answer("URL:")
       new_line(2)
-      
+
       # unicorn
       @options[:production_settings][:unicorn] = true
       new_line(2)
@@ -168,37 +167,34 @@ class OptionsMenu < Options
       @options[:production_settings][:url] = nil
       @options[:production_settings][:unicorn] = nil
     end
-    
+
     # SUMMARY
     wputs "5. Summary"
     wputs "----------"
     new_line
-    
+
     # generate now
     wputs "- I am ready! Generate #{@options[:app_name]} now?"
     wputs "1. Do it! (default)", :info
     wputs "2. No, not now", :info
     @options[:generate] = answer() == "2" ? false : true
     new_line
-    
+
     @options
   end
-  
-  
+
   # Shortcut/alias methods
-  
+
   private
-  
+
   def wputs(text, highlight = :none)
     StringHelpers.wputs(text, highlight)
   end
-  
-  
+
   def new_line(lines=1)
     StringHelpers.new_line(lines)
   end
-  
-  
+
   def answer(choices="Your choice (1-2):", is_downcase = true)
     print "#{choices} "
     if is_downcase
@@ -206,7 +202,5 @@ class OptionsMenu < Options
     else
       STDIN.gets.chomp.strip
     end
-  end  
-  
-  
+  end
 end
