@@ -1,8 +1,7 @@
 class SingleLabel < AnswerType
   custom_fields :text, :options
 
-  def validation(answer)
-    return false unless answer.is_a?(Array) && answer.length < 2
-    answer.all? { |a| options.include? a }
+  validate_answer do |ans|
+    ans.is_a?(Array) && ans.length < 2 && ans.all? { |a| options.include? a }
   end
 end

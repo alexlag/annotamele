@@ -3,15 +3,20 @@ class AnswerType < ActiveRecord::Base
 
   self.inheritance_column = :type
 
-  class_attribute :custom_fields_list
+  class_attribute :custom_fields_list, :validations
   self.custom_fields_list = []
+  self.validations = []
 
   def self.custom_fields(*args)
     args.each do |arg|
       custom_fields_list << arg
-      class_eval("def #{arg}; body[:#{arg}];end")
-      class_eval("def #{arg}=(val);body[:#{arg}]=val;end")
+      class_eval "def #{arg}; body[:#{arg}];end"
+      class_eval "def #{arg}=(val);body[:#{arg}]=val;end"
     end
+  end
+
+  def self.validate_answer(&block)
+    validations << block
   end
 
   def view_partial
@@ -27,7 +32,9 @@ class AnswerType < ActiveRecord::Base
     end
   end
 
-  def validation(_answer)
-    true
+  def validation(answer)
+    validations.all? do |callback|
+      instance_exec answer, &callback
+    end
   end
 end
