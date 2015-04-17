@@ -15,10 +15,10 @@
           </div>
 
           <%= render @question.type.view_partial %>
-          
+
           <br />
           <%= submit_tag 'Submit', class: "btn btn-primary" %>
-        <% end %> 
+        <% end %>
       <% else %>
         <h2>Looks like no more questions left</h2>
       <% end%>

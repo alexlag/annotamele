@@ -1,11 +1,17 @@
-[ 
+[
+  {
+    "name": "Regression",
+    "params": {
+      "text": "Enter a number below:"
+    }
+  },
   {
     "name": "SingleLabel",
     "params": {
       "text": "Select one answer below:",
       "options": ["Answer 1", "Answer 2", "Answer 3"]
     }
-  }, 
+  },
   {
     "name": "MultiLabel",
     "params": {

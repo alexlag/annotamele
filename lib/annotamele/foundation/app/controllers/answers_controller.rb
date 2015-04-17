@@ -3,7 +3,6 @@ class AnswersController < ApplicationController
 
   def question
     @question = Question.random_without(current_user.answered_question_ids).first
-    @answer = Answer.new
 
     respond_to do |format|
       format.html { render :new }
@@ -13,9 +12,13 @@ class AnswersController < ApplicationController
   def add_answer
     @answer = Answer.new(answer_params)
     @answer.user = current_user || User.anonymous
+    @answer.preprocess
 
-    @answer.save
-    redirect_to new_question_path
+    if @answer.save
+      redirect_to new_question_path
+    else
+      redirect_to new_question_path, alert: 'Your answer was not valid'
+    end
   end
 
   def index

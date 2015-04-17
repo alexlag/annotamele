@@ -3,9 +3,10 @@ class AnswerType < ActiveRecord::Base
 
   self.inheritance_column = :type
 
-  class_attribute :custom_fields_list, :validations
+  class_attribute :custom_fields_list, :validations, :preprocesses
   self.custom_fields_list = []
   self.validations = []
+  self.preprocesses = []
 
   def self.custom_fields(*args)
     args.each do |arg|
@@ -13,6 +14,10 @@ class AnswerType < ActiveRecord::Base
       class_eval "def #{arg}; body[:#{arg}];end"
       class_eval "def #{arg}=(val);body[:#{arg}]=val;end"
     end
+  end
+
+  def self.preprocess_answer(&block)
+    preprocesses << block
   end
 
   def self.validate_answer(&block)
@@ -29,6 +34,12 @@ class AnswerType < ActiveRecord::Base
   def export
     custom_fields_list.each_with_object(type: self.class.name) do |field, total|
       total[field] = body[field]
+    end
+  end
+
+  def preprocess(answer)
+    preprocesses.inject(answer) do |res, callback|
+      instance_exec res, &callback
     end
   end
 
