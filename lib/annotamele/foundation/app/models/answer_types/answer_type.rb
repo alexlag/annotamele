@@ -3,25 +3,36 @@ class AnswerType < ActiveRecord::Base
 
   self.inheritance_column = :type
 
-  class_attribute :custom_fields_list, :validations, :preprocesses
-  self.custom_fields_list = []
-  self.validations = []
-  self.preprocesses = []
+  class << self
+    attr_accessor :custom_fields_list, :validations, :preprocesses
+  end
+
+  def custom_fields_list
+    self.class.custom_fields_list || []
+  end
+
+  def validations
+    self.class.validations || []
+  end
+
+  def preprocesses
+    self.class.preprocesses || []
+  end
 
   def self.custom_fields(*args)
     args.each do |arg|
-      custom_fields_list << arg
+      (@custom_fields_list ||= []) << arg
       class_eval "def #{arg}; body[:#{arg}];end"
       class_eval "def #{arg}=(val);body[:#{arg}]=val;end"
     end
   end
 
   def self.preprocess_answer(&block)
-    preprocesses << block
+    (@preprocesses ||= []) << block
   end
 
   def self.validate_answer(&block)
-    validations << block
+    (@validations ||= []) << block
   end
 
   def view_partial

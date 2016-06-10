@@ -16,7 +16,7 @@ RUN \
   libxslt1-dev \
   libyaml-dev \
   zlib1g-dev \
-  libssl-dev 
+  libssl-dev
 
 # Ruby install
 RUN \
@@ -29,7 +29,7 @@ RUN \
   rm -rf ruby-2.1.5 && \
   echo 'gem: --no-document' > /usr/local/etc/gemrc && \
   echo 'gem: --no-document' > ~/.gemrc && \
-  gem install bundler 
+  gem install bundler
 
 # SQLite and Node
 RUN \
@@ -42,9 +42,8 @@ WORKDIR /var/www/annotamele
 COPY lib/annotamele/foundation .
 COPY docker/answer_types.json db/answer_types.json
 COPY docker/dataset.json db/seed_data.json
-RUN \
-  bundle install --path vendor/bundle && \
-  RAILS_ENV=production bundle exec rake db:create:all db:migrate db:seed assets:precompile
+RUN bundle install --path vendor/bundle
+RUN RAILS_ENV=production bundle exec rake db:create:all db:migrate db:seed assets:precompile
 
 EXPOSE 3000
 
