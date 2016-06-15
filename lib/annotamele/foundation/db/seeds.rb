@@ -22,11 +22,12 @@ end
 # Dataset
 seed_data = JSON.parse IO.read('db/seed_data.json'), symbolize_names: true
 
-seed_data[:questions].each do |sd|
-  q = Question.new(
-    type_id: sd[:type],
-    object: sd[:object],
-    context: sd[:context]
-  )
-  q.save!
+Question.transaction do
+  seed_data[:questions].map { |sd|
+    Question.new(
+      type_id: sd[:type],
+      object: sd[:object],
+      context: sd[:context]
+    )
+  }.each(&:save!)
 end
